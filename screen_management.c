@@ -6,12 +6,13 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:31:20 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/22 17:54:31 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/24 18:59:32 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
 #include <mlx.h>
+#include <stdlib.h>
 
 void	put_image(t_vars *vars, void *img, int x, int y)
 {
@@ -63,26 +64,6 @@ void	print_map(t_vars *vars)
 		}
 		i++;
 	}
-}
-
-void	update(t_vars *vars, int *position, int direction)
-{
-	put_image(vars, vars->dirt, vars->player.x * 32, vars->player.y * 32);
-	if (vars->map_data[vars->player.y][vars->player.x] == 'C')
-	{
-		vars->map_data[vars->player.y][vars->player.x] = '0';
-		vars->nb_diam--;
-	}
-	else if (vars->map_data[vars->player.y][vars->player.x] == 'E')
-		put_image(vars, vars->ladder, vars->player.x * 32, vars->player.y * 32);
-	vars->move_count++;
-	*position += direction;
-	put_image(vars, vars->steve, vars->player.x * 32, vars->player.y * 32);
-	put_image(vars, vars->dirt, vars->creep.x * 32, vars->creep.y * 32);
-	if (vars->map_data[vars->creep.y][vars->creep.x] == 'C')
-		put_image(vars, vars->diamond, vars->creep.x * 32, vars->creep.y * 32);
-	else if (vars->map_data[vars->creep.y][vars->creep.x] == 'E')
-		put_image(vars, vars->ladder, vars->creep.x * 32, vars->creep.y * 32);
-	init_ai(vars);
-	put_image(vars, vars->creeper, vars->creep.x * 32, vars->creep.y * 32);
+	put_image(vars, vars->moves, 32, vars->map.y * 32 + 11);
+	put_image(vars, vars->numb[0], 240, vars->map.y * 32 + 11);
 }

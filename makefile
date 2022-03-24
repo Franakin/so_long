@@ -1,4 +1,4 @@
-SRC = main.c map_management.c screen_management.c event_management.c error_management.c ai_management.c ai_utils.c
+SRC = main.c map_management.c screen_management.c event_management.c gameover.c ai_management.c ai_utils.c update.c
 
 OBJ = $(SRC:.c=.o)
 

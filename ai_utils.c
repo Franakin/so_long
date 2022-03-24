@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/19 18:05:54 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/22 20:59:05 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/24 15:41:26 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	check_path(t_vars *vars, t_dum *dummy, t_path *path)
 	t_path	dummy_path;
 	int		*tl;
 
-	while (dummy->y != vars->player.y || dummy->x != vars->player.x)
+	while (!(dummy->y == vars->player.y && dummy->x == vars->player.x))
 	{
 		crt_path_var(&dummy_path, dummy, &vars->player);
 		tl = crt_mvbl_tiles(vars, dummy, path);
@@ -96,7 +96,11 @@ int	check_path(t_vars *vars, t_dum *dummy, t_path *path)
 		else if (dummy_path.y_diff <= dummy_path.x_diff && tl[1])
 			dummy->x += dummy_path.x_dir;
 		else
+		{
+			free(tl);
 			return (0);
+		}
+		free(tl);
 	}
 	return (1);
 }
