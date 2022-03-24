@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 18:27:54 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/24 17:48:01 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/24 20:23:05 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	init_ai(t_vars *vars)
 	dummy.x = vars->creep.x;
 	dummy.y = vars->creep.y;
 	crt_path_var(&vars->path, &vars->creep, &vars->player);
-	if (collision(vars->creep, vars->player))
-		vars->game_over = 1;
 	if (check_path(vars, &dummy, &vars->path))
 		move_towards_player(vars, &vars->path);
 	else if (vars->locked_i > 0)
@@ -72,6 +70,8 @@ void	init_ai(t_vars *vars)
 	}
 	else
 		move_randomly(vars, &vars->path);
+	if (collision(vars->creep, vars->player))
+		vars->game_over = 1;
 }
 
 void	spawn_creeper(t_vars *vars)
