@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:24:25 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/19 18:14:12 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/29 16:24:20 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	new_imap(t_vars *vars, t_path *path)
 	}
 }
 
-char	**convert_map(int fd)
+char	**convert_map(int fd, t_vars *vars)
 {
 	int		bytes_read;
 	char	*buffer;
@@ -55,7 +55,7 @@ char	**convert_map(int fd)
 	map_as_string = (char *)malloc(1);
 	buffer = (char *)malloc(2);
 	if (!buffer || !map_as_string)
-		return (NULL);
+		error(strerror(errno), vars);
 	map_as_string[0] = '\0';
 	buffer[1] = '\0';
 	bytes_read = 1;
@@ -93,7 +93,7 @@ void	map_x(t_vars *vars)
 		if (vars->map.y == 0)
 			save = vars->map.x;
 		else if (vars->map.x != save)
-			error("Invalid map (map.x).", vars);
+			error("Invalid map dimensions.", vars);
 		vars->map.y++;
 	}
 }

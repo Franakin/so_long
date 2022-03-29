@@ -6,12 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:40:26 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/24 19:17:51 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/29 16:28:56 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
-#include <mlx.h>
+#define SPEED 1750
 
 static void	explode(t_vars *vars, int frame, int x, int y)
 {
@@ -47,12 +47,12 @@ int	animate(t_vars *vars)
 		explode(vars, frame++, vars->creep.x, vars->creep.y);
 		i = 0;
 	}
-	else if (i == 2500 && vars->move_count > 0 && !vars->game_over)
+	else if (i == SPEED && vars->move_count > 0 && !vars->game_over)
 	{
 		creeper_update(vars);
 		i = 0;
 	}
-	if (i < 2500)
+	if (i < SPEED)
 		i++;
 	return (1);
 }

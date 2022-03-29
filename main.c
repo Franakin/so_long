@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/24 20:19:59 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/29 16:43:44 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <mlx.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 static void	import_xpm(t_vars *vars)
 {
@@ -48,7 +47,7 @@ static void	import_numbers(t_vars *vars)
 	int	h;
 	int	w;
 
-	vars->numb[0] = mlx_xpm_file_to_image(vars->mlx, "xpm/0.xpm", &w, &h);
+	0[vars->numb] = mlx_xpm_file_to_image(vars->mlx, "xpm/0.xpm", &w, &h);
 	vars->numb[1] = mlx_xpm_file_to_image(vars->mlx, "xpm/1.xpm", &w, &h);
 	vars->numb[2] = mlx_xpm_file_to_image(vars->mlx, "xpm/2.xpm", &w, &h);
 	vars->numb[3] = mlx_xpm_file_to_image(vars->mlx, "xpm/3.xpm", &w, &h);
@@ -67,23 +66,24 @@ static void	import_numbers(t_vars *vars)
 static void	init_vars(t_vars *vars, char *map_name)
 {
 	int	fd;
+	int	win_len;
 
 	vars->move_count = 0;
 	vars->game_over = 0;
 	vars->mlx = mlx_init();
 	fd = open(map_name, O_RDONLY);
-	vars->map_data = convert_map(fd);
+	vars->map_data = convert_map(fd, vars);
 	if (!vars->map_data)
 		error("Map not loadable (main).", NULL);
 	close(fd);
 	map_x(vars);
 	map_y(vars);
 	if (vars->map.x > 12)
-		vars->win = mlx_new_window(vars->mlx, vars->map.x * 32,
-				(vars->map.y + 2) * 32, "MC2D");
+		win_len = vars->map.x * 32;
 	else
-		vars->win = mlx_new_window(vars->mlx, 384,
-				(vars->map.y + 2) * 32, "MC2D");
+		win_len = 384;
+	vars->win = mlx_new_window(vars->mlx, win_len,
+			(vars->map.y + 2) * 32, "MC2D");
 	vars->explorer = vars->map.x * vars->map.y / 20;
 	vars->locked_i = 0;
 }

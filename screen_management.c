@@ -6,13 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:31:20 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/24 18:59:32 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/29 16:26:55 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
 #include <mlx.h>
-#include <stdlib.h>
 
 void	put_image(t_vars *vars, void *img, int x, int y)
 {
@@ -36,7 +35,7 @@ static void	check_char(t_vars *vars, char c, int x, int y)
 		put_image(vars, vars->ladder, x, y);
 	}
 	else
-		error("Invalid map (print_map).", vars);
+		error("Invalid character in map.", vars);
 }
 
 void	print_map(t_vars *vars)

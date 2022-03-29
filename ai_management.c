@@ -6,13 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 18:27:54 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/24 20:23:05 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/03/29 16:27:58 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
 #include <stdlib.h>
-#include <string.h>
 #include <math.h>
 
 static void	move_randomly(t_vars *vars, t_path *path)

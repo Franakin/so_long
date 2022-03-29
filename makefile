@@ -1,4 +1,11 @@
-SRC = main.c map_management.c screen_management.c event_management.c gameover.c ai_management.c ai_utils.c update.c
+SRC = main.c\
+map_management.c\
+screen_management.c\
+event_management.c\
+gameover.c\
+ai_management.c\
+ai_utils.c\
+update.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -12,7 +19,7 @@ $(PRINTF):
 	make -C ft_printf
 
 $(NAME)	:	$(OBJ) $(PRINTF)
-	gcc $(OBJ) -Lmlx -lmlx -g -framework OpenGL -framework AppKit -o $(NAME) $(PRINTF)
+	gcc $(OBJ) -Lmlx -lmlx -lm -g -framework OpenGL -framework AppKit -o $(NAME) $(PRINTF)
 
 %.o		:	%.c
 	gcc -Wall -Werror -Wextra -Imlx -g -c $< -o $@
@@ -23,6 +30,6 @@ clean	:
 
 fclean	:	clean
 	rm -f $(NAME)
-	rm -f ft_printf/libftprintf.a
+	make fclean -C ft_printf
 
 re		:	fclean all
