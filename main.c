@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/07 18:53:05 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/13 18:57:17 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <mlx.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#include <stdio.h>
 
 static void	import_xpm(t_vars *vars)
 {
@@ -75,9 +73,11 @@ static void	init_vars(t_vars *vars, char *map_name)
 	vars->game_over = 0;
 	vars->mlx = mlx_init();
 	fd = open(map_name, O_RDONLY);
+	if (fd < 0)
+		error("Coulnd't find map in directory", vars);
 	vars->map_data = convert_map(fd, vars);
 	if (!vars->map_data)
-		error("Map not loadable.", NULL);
+		error("Map not loadable", vars);
 	close(fd);
 	map_size(vars);
 	if (vars->map.x > 12)
@@ -97,7 +97,7 @@ int	main(int argc, char **map_name)
 	map_name++;
 	if (argc > 2 || ft_strncmp((const char *)*map_name
 			+ ft_strlen(*map_name) - 4, ".ber", 4))
-		error("Invalid map name.", &vars);
+		error("Invalid map name", &vars);
 	init_vars(&vars, map_name[0]);
 	import_xpm(&vars);
 	import_numbers(&vars);
