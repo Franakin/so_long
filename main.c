@@ -6,14 +6,17 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:43:44 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 18:53:05 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
+#include "ft_printf/libft/libft.h"
 #include <mlx.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#include <stdio.h>
 
 static void	import_xpm(t_vars *vars)
 {
@@ -74,10 +77,9 @@ static void	init_vars(t_vars *vars, char *map_name)
 	fd = open(map_name, O_RDONLY);
 	vars->map_data = convert_map(fd, vars);
 	if (!vars->map_data)
-		error("Map not loadable (main).", NULL);
+		error("Map not loadable.", NULL);
 	close(fd);
-	map_x(vars);
-	map_y(vars);
+	map_size(vars);
 	if (vars->map.x > 12)
 		win_len = vars->map.x * 32;
 	else
@@ -92,8 +94,11 @@ int	main(int argc, char **map_name)
 {
 	t_vars	vars;
 
-	(void)argc;
-	init_vars(&vars, map_name[1]);
+	map_name++;
+	if (argc > 2 || ft_strncmp((const char *)*map_name
+			+ ft_strlen(*map_name) - 4, ".ber", 4))
+		error("Invalid map name.", &vars);
+	init_vars(&vars, map_name[0]);
 	import_xpm(&vars);
 	import_numbers(&vars);
 	print_map(&vars);
@@ -102,7 +107,8 @@ int	main(int argc, char **map_name)
 	mlx_do_key_autorepeatoff(vars.mlx);
 	mlx_hook(vars.win, 2, 1L << 0, key_press, &vars);
 	mlx_hook(vars.win, 17, 1L << 0, close_window, &vars);
-	mlx_loop_hook(vars.mlx, animate, &vars);
+	if (vars.enemy_exists)
+		mlx_loop_hook(vars.mlx, animate, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

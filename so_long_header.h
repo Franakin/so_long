@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:25:03 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:40:07 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 17:15:10 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_vars
 	int				locked_i;
 	int				move_count;
 	int				game_over;
+	int				enemy_exists;
+	int				mtp;
 	t_dum			player;
 	t_dum			creep;
 	t_dum			map;
@@ -63,8 +65,7 @@ typedef struct s_vars
 //map management
 void	new_imap(t_vars *vars, t_path *path);
 char	**convert_map(int fd, t_vars *vars);
-void	map_y(t_vars *vars);
-void	map_x(t_vars *vars);
+void	map_size(t_vars *vars);
 //event management
 int		animate(t_vars *vars);
 int		collision(t_dum obj1, t_dum obj2);

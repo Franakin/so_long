@@ -6,12 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:40:26 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:28:56 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/13 16:12:25 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
-#define SPEED 1750
+#define SPEED 2000
 
 static void	explode(t_vars *vars, int frame, int x, int y)
 {

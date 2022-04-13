@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:37:17 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:29:42 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 16:41:06 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 int	close_window(t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
 }
 

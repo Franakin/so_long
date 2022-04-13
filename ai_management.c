@@ -6,13 +6,15 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 18:27:54 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:27:58 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 17:35:08 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
 #include <stdlib.h>
 #include <math.h>
+
+#include <stdio.h>
 
 static void	move_randomly(t_vars *vars, t_path *path)
 {
@@ -73,22 +75,52 @@ void	init_ai(t_vars *vars)
 		vars->game_over = 1;
 }
 
+static int	is_spawnable(t_vars *vars)
+{
+	t_dum	spawn_loc;
+	int		height;
+	int		length;
+
+	spawn_loc.y = 1;
+	while (spawn_loc.y < vars->map.y)
+	{
+		spawn_loc.x = 1;
+		while (spawn_loc.x < vars->map.x)
+		{
+			height = vars->player.y - spawn_loc.y;
+			length = vars->player.x - spawn_loc.x;
+			if ((sqrt(height * height + length * length) > 3)
+				&& vars->map_data[spawn_loc.y][spawn_loc.x] != '1')
+				return (1);
+			spawn_loc.x++;
+		}
+		spawn_loc.y++;
+	}
+	return (0);
+}
+
 void	spawn_creeper(t_vars *vars)
 {
 	int	height;
-	int	lenght;
+	int	length;
 
+	if (!is_spawnable(vars))
+	{
+		vars->enemy_exists = 0;
+		return ;
+	}
+	vars->enemy_exists = 1;
 	vars->creep.x = rand() % vars->map.x;
 	vars->creep.y = rand() % vars->map.y;
 	height = vars->creep.y - vars->player.y;
-	lenght = vars->creep.x - vars->player.x;
+	length = vars->creep.x - vars->player.x;
 	while (vars->map_data[vars->creep.y][vars->creep.x] == '1'
-		|| sqrt(height * height + lenght * lenght) < 3)
+		|| sqrt(height * height + length * length) <= 3)
 	{
 		vars->creep.x = rand() % vars->map.x;
 		vars->creep.y = rand() % vars->map.y;
 		height = vars->creep.y - vars->player.y;
-		lenght = vars->creep.x - vars->player.x;
+		length = vars->creep.x - vars->player.x;
 	}
 	put_image(vars, vars->creeper, vars->creep.x * 32, vars->creep.y * 32);
 }

@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:31:20 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:26:55 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 17:28:35 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 
 void	put_image(t_vars *vars, void *img, int x, int y)
 {
+	int	i;
+	int	yes;
+
+	i = 0;
+	yes = 1;
+	while (i < 10)
+	{
+		if (img == vars->numb[i] || img == vars->moves || img == vars->black)
+		{
+			yes = 0;
+			break ;
+		}
+		i++;
+	}
+	if (yes && vars->map.x <= 12)
+		x += (384 - (vars->map.x * 32)) / 2;
 	mlx_put_image_to_window(vars->mlx, vars->win, img, x, y);
 }
 

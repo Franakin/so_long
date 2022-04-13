@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:24:25 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/03/29 16:24:20 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/07 19:04:05 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,34 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+
+static void	map_validity(t_vars *vars, int *parts)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (vars->map_data[y])
+	{
+		x = 0;
+		while (vars->map_data[y][x])
+		{
+			if ((x == 0 || x == vars->map.x - 1 || y == 0
+					|| y == vars->map.y - 1) && vars->map_data[y][x] != '1')
+				error("Invalid surrounding walls.", vars);
+			if (vars->map_data[y][x] == 'P')
+				parts[0]++;
+			else if (vars->map_data[y][x] == 'C')
+				parts[1] = 1;
+			else if (vars->map_data[y][x] == 'E')
+				parts[2] = 1;
+			x++;
+		}
+		y++;
+	}
+	if (parts[0] != 1 || !parts[1] || !parts[2])
+		error("Map config error.", vars);
+}
 
 void	new_imap(t_vars *vars, t_path *path)
 {
@@ -73,18 +101,15 @@ char	**convert_map(int fd, t_vars *vars)
 	return (map_data);
 }
 
-void	map_y(t_vars *vars)
+void	map_size(t_vars *vars)
 {
-	while (vars->map_data[vars->map.y])
-		vars->map.y++;
-}
+	int		save;
+	int		parts[3];
 
-void	map_x(t_vars *vars)
-{
-	int	save;
-
+	parts[0] = 0;
+	parts[1] = 0;
+	parts[2] = 0;
 	vars->map.y = 0;
-	save = -1;
 	while (vars->map_data[vars->map.y])
 	{
 		vars->map.x = 0;
@@ -96,4 +121,5 @@ void	map_x(t_vars *vars)
 			error("Invalid map dimensions.", vars);
 		vars->map.y++;
 	}
+	map_validity(vars, parts);
 }
