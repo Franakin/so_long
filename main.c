@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/13 18:57:17 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/04/19 12:24:49 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ static void	init_vars(t_vars *vars, char *map_name)
 	vars->mlx = mlx_init();
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		error("Coulnd't find map in directory", vars);
+		error("Coulnd't find map in directory.", vars);
 	vars->map_data = convert_map(fd, vars);
 	if (!vars->map_data)
-		error("Map not loadable", vars);
+		error("Map not loadable.", vars);
 	close(fd);
 	map_size(vars);
 	if (vars->map.x > 12)
