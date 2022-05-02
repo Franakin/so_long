@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:37:17 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/19 12:25:49 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/02 18:05:44 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	game_over(t_vars *vars)
 
 void	error(char *message, t_vars *vars)
 {
-	ft_printf("Error\n%s", message);
+	ft_printf("Error\n%s\n", message);
 	close_window(vars);
 }

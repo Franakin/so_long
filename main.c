@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/19 12:24:49 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/02 18:06:12 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int	main(int argc, char **map_name)
 	t_vars	vars;
 
 	map_name++;
-	if (argc > 2 || ft_strncmp((const char *)*map_name
+	if (argc != 2 || ft_strncmp((const char *)*map_name
 			+ ft_strlen(*map_name) - 4, ".ber", 4))
-		error("Invalid map name", &vars);
+		error("Invalid map name.", &vars);
 	init_vars(&vars, map_name[0]);
 	import_xpm(&vars);
 	import_numbers(&vars);

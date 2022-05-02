@@ -22,7 +22,7 @@ test	:
 
 ${NAME}	:	${OBJS} $(LIBFT)
 	cp $(LIBFT) $(NAME)
-	ar -rcsu ${NAME} ${OBJS} 
+	ar -rcsu ${NAME} ${OBJS}
 
 clean	:
 	make clean -C libft
@@ -34,3 +34,5 @@ fclean	:	clean
 	rm -f libft/libft.a
 
 re	: fclean all
+
+.PHONY	:	all clean fclean re test
