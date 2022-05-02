@@ -6,12 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:24:25 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/19 12:26:30 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/02 18:22:32 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
-#include "ft_printf/ft_printf.h"
+#include "ft_printf/libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>

@@ -6,12 +6,12 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/24 18:34:38 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/13 18:58:29 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/02 18:23:52 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_header.h"
-#include "ft_printf/ft_printf.h"
+#include "ft_printf/libft/libft.h"
 #include <stdlib.h>
 
 static void	update_movecount(t_vars *vars)
