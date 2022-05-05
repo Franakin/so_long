@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/18 14:50:33 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/04/13 18:06:34 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/05 13:34:33 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@
 static	int	count_words(char const *s, char c)
 {
 	int	count;
+	int	i;
 
 	count = 0;
-	while (*s)
+	i = 0;
+	while (s[i])
 	{
-		if (*s == c && *s)
-			s++;
+		if ((s[i] == c && s[i + 1] == c)
+			|| (s[i] == c && i == 0)
+			|| (s[i] == c && s[i + 1] == '\0'))
+			return (0);
+		if (s[i] == c && s[i])
+			i++;
 		else
 		{
-			while (*s != c && *s)
-				s++;
+			while (s[i] != c && s[i])
+				i++;
 			count++;
 		}
 	}
@@ -70,7 +76,7 @@ static	void	write_split(char **strs, char const *s, char c, int wordcount)
 	}
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_modded_split(char const *s, char c)
 {
 	char	**strs;
 	int		wordcount;
@@ -78,6 +84,8 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	wordcount = count_words(s, c);
+	if (!wordcount)
+		return (NULL);
 	strs = (char **)malloc(sizeof(char *) * (wordcount + 1));
 	if (!strs)
 		return (NULL);

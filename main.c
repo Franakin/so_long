@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 16:03:30 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/05/02 18:21:18 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/05 13:22:16 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	init_vars(t_vars *vars, char *map_name)
 		error("Coulnd't find map in directory.", vars);
 	vars->map_data = convert_map(fd, vars);
 	if (!vars->map_data)
-		error("Map not loadable.", vars);
+		error("Error loading map.", vars);
 	close(fd);
 	map_size(vars);
 	if (vars->map.x > 12)

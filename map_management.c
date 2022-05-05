@@ -6,7 +6,7 @@
 /*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/24 17:24:25 by fpurdom       #+#    #+#                 */
-/*   Updated: 2022/05/02 18:22:32 by fpurdom       ########   odam.nl         */
+/*   Updated: 2022/05/05 13:56:22 by fpurdom       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,31 @@
 
 static void	map_validity(t_vars *vars, int *parts)
 {
-	int	x;
-	int	y;
+	int	xy[2];
 
-	y = 0;
-	while (vars->map_data[y])
+	xy[1] = 0;
+	while (vars->map_data[xy[1]])
 	{
-		x = 0;
-		while (vars->map_data[y][x])
+		xy[0] = 0;
+		while (vars->map_data[xy[1]][xy[0]])
 		{
-			if ((x == 0 || x == vars->map.x - 1 || y == 0
-					|| y == vars->map.y - 1) && vars->map_data[y][x] != '1')
+			if (vars->map_data[xy[1]][xy[0]] != '1' && (xy[0] == 0 || xy[1] == 0
+				|| xy[0] == vars->map.x - 1 || xy[1] == vars->map.y - 1))
 				error("Invalid surrounding walls.", vars);
-			if (vars->map_data[y][x] == 'P')
+			if (vars->map_data[xy[1]][xy[0]] == 'P')
+			{
 				parts[0]++;
-			else if (vars->map_data[y][x] == 'C')
+				if (parts[0] > 1)
+					vars->map_data[xy[1]][xy[0]] = '0';
+			}
+			else if (vars->map_data[xy[1]][xy[0]] == 'C')
 				parts[1] = 1;
-			else if (vars->map_data[y][x] == 'E')
+			else if (vars->map_data[xy[1]][xy[0]] == 'E')
 				parts[2] = 1;
-			x++;
+			xy[0]++;
 		}
-		y++;
+		xy[1]++;
 	}
-	if (parts[0] != 1 || !parts[1] || !parts[2])
-		error("Map config error.", vars);
 }
 
 void	new_imap(t_vars *vars, t_path *path)
@@ -96,7 +97,7 @@ char	**convert_map(int fd, t_vars *vars)
 		buffer[bytes_read] = '\0';
 	}
 	free(buffer);
-	map_data = ft_split(map_as_string, '\n');
+	map_data = ft_modded_split(map_as_string, '\n');
 	free(map_as_string);
 	return (map_data);
 }
@@ -122,4 +123,6 @@ void	map_size(t_vars *vars)
 		vars->map.y++;
 	}
 	map_validity(vars, parts);
+	if (!parts[0] || !parts[1] || !parts[2])
+		error("Map config error.", vars);
 }
